@@ -1,0 +1,12 @@
+data:
+  smiles_config:
+    notation: smiles
+    tokenizer: smiles
+    randomize: true
+  
+  smiles_contrast_config:
+    notation: smiles
+    tokenizer: smiles
+    randomize: true
+    mask_proba: 0.15
+    crop_length: 12

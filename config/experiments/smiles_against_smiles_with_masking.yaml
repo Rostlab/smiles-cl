@@ -1,0 +1,16 @@
+data:
+  transform_configs:
+    smiles:
+      notation: smiles
+      tokenizer: smiles
+      randomize: true
+    
+    smiles_masked:
+      notation: smiles
+      tokenizer: smiles
+      randomize: true
+      mask_proba: 0.5
+
+model:
+  training_config:
+    shared_encoder: true

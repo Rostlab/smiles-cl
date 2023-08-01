@@ -1,0 +1,7 @@
+trainer:
+  logger:
+    class_path: smiles_cl.evaluation.callbacks.WandbLoggerWithCheckpointCallback
+    init_args:
+      project: smiles-cl
+      save_dir: runs
+      log_model: false

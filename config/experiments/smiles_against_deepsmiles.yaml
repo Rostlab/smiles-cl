@@ -1,0 +1,11 @@
+data:
+  transform_configs:
+    smiles:
+      notation: smiles
+      tokenizer: smiles
+      randomize: true
+
+    deepsmiles:
+      notation: deepsmiles
+      tokenizer: deepsmiles
+      randomize: true

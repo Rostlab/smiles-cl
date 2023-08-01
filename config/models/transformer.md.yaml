@@ -1,0 +1,6 @@
+model:
+  encoder_config:
+    num_layers: 8
+    num_heads: 8
+    dim_model: 512
+    dim_feedforward: 1024

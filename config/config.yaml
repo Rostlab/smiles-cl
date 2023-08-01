@@ -1,0 +1,30 @@
+model:
+  training_config:
+    lr: 1e-4
+    weight_decay: 1e-2
+    warmup_steps: 3_000
+
+trainer:
+  max_epochs: 10
+  fast_dev_run: false
+  log_every_n_steps: 100
+  callbacks:
+    - class_path: RichModelSummary
+      init_args:
+        max_depth: 3
+    - class_path: LearningRateMonitor
+      init_args:
+        logging_interval: step
+    - class_path: pytorch_lightning.callbacks.early_stopping.EarlyStopping
+      init_args:
+        monitor: train/loss
+        mode: min
+        patience: 3
+        verbose: true
+        min_delta: 0.01
+    - class_path: ModelCheckpoint
+      init_args:
+        save_top_k: -1
+        save_last: true
+        auto_insert_metric_name: true
+        every_n_train_steps: 1_000

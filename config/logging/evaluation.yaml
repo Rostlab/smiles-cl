@@ -1,0 +1,18 @@
+trainer:
+  logger:
+    class_path: smiles_cl.evaluation.callbacks.WandbLoggerWithCheckpointCallback
+    init_args:
+      checkpoint_callback:
+        class_path: smiles_cl.evaluation.callbacks.EvaluationCallback
+        init_args:
+          modalities:
+          - smiles
+          datasets:
+          - bace_classification
+          - bace_regression
+          - clearance
+          - delaney
+          - lipo
+          - bbbp
+          - clintox
+          - tox21

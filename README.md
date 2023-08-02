@@ -102,7 +102,7 @@ This allows to easily configure different encoding settings or use entirely diff
 
 We provide a convenient interface to extract embeddings from a pretrained SMILES-CL model:
 
-```bash
+```python
 from smiles_cl.inference import SmilesCLEncoder
 
 smiles = [

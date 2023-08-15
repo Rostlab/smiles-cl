@@ -1002,6 +1002,17 @@ files = [
 ]
 
 [[package]]
+name = "distro"
+version = "1.8.0"
+description = "Distro - an OS platform information API"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "distro-1.8.0-py3-none-any.whl", hash = "sha256:99522ca3e365cac527b44bde033f64c6945d90eb9f769703caaec52b09bbd3ff"},
+    {file = "distro-1.8.0.tar.gz", hash = "sha256:02e111d1dc6a50abb8eed6bf31c3e48ed8b0830d1ea2a1b78c61765c2513fdd8"},
+]
+
+[[package]]
 name = "docker-pycreds"
 version = "0.4.0"
 description = "Python bindings for the docker credentials store API"
@@ -5000,6 +5011,27 @@ files = [
 mpmath = ">=0.19"
 
 [[package]]
+name = "tabula-py"
+version = "2.7.0"
+description = "Simple wrapper for tabula-java, read tables from PDF into DataFrame"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "tabula-py-2.7.0.tar.gz", hash = "sha256:e95d8ff49fe2f86534006ae8bf38d54a9894ae70042831d70d5760800519bae8"},
+    {file = "tabula_py-2.7.0-py3-none-any.whl", hash = "sha256:7151077fedd4a6976a1a4388e36774e87d7a421a4dd0775cc3da25f2fd43ebbe"},
+]
+
+[package.dependencies]
+distro = "*"
+numpy = "*"
+pandas = ">=0.25.3"
+
+[package.extras]
+dev = ["Flake8-pyproject", "black", "flake8", "isort", "mypy", "pytest"]
+doc = ["sphinx", "sphinx-rtd-theme"]
+test = ["pytest"]
+
+[[package]]
 name = "tabulate"
 version = "0.9.0"
 description = "Pretty-print tabular data"
@@ -5802,6 +5834,17 @@ files = [
 ]
 
 [[package]]
+name = "xlsxwriter"
+version = "3.1.2"
+description = "A Python module for creating Excel XLSX files."
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "XlsxWriter-3.1.2-py3-none-any.whl", hash = "sha256:331508ff39d610ecdaf979e458840bc1eab6e6a02cfd5d08f044f0f73636236f"},
+    {file = "XlsxWriter-3.1.2.tar.gz", hash = "sha256:78751099a770273f1c98b8d6643351f68f98ae8e6acf9d09d37dc6798f8cd3de"},
+]
+
+[[package]]
 name = "xxhash"
 version = "3.2.0"
 description = "Python binding for xxHash"
@@ -6029,4 +6072,4 @@ pyyaml = ">=6.0,<7.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.11"
-content-hash = "afc98a1f0afd2198734b5d1dcfc37df5afda96edb69d23d749cbba2ecd8d6238"
+content-hash = "d153f165ed77db3ac26e6b9146e6425d2692a1f392b6e32ed37582541b9192eb"

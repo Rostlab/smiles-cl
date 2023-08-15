@@ -61,6 +61,8 @@ submitit = "^1.4.5"
 openpyxl = "^3.1.2"
 unimol-tools = {git = "https://github.com/dptech-corp/Uni-Mol.git", subdirectory = "unimol_tools"}
 pre-commit = "^3.3.3"
+tabula-py = "^2.7.0"
+xlsxwriter = "^3.1.2"
 
 [tool.pytest.ini_options]
 filterwarnings = [

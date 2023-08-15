@@ -1,6 +1,6 @@
 trainer:
   logger:
-    class_path: smiles_cl.evaluation.callbacks.WandbLoggerWithCheckpointCallback
+    class_path: WandbLogger
     init_args:
       project: smiles-cl
       save_dir: runs

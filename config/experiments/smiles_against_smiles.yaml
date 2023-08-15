@@ -8,5 +8,3 @@ data:
     notation: smiles
     tokenizer: smiles
     randomize: true
-    mask_proba: 0.2
-    crop_length: 10

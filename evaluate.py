@@ -24,10 +24,10 @@ def wrap_autocast(fn):
     return wrapped_fn
 
 
-def save_run_summary(run_dir: PathLike):
+def save_run_summary(run_dir: PathLike, **kwargs):
     run_dir = Path(run_dir)
 
-    summary_fig = create_evaluation_summary_plot(run_dir)
+    summary_fig = create_evaluation_summary_plot(run_dir, **kwargs)
     summary_fig.savefig(run_dir / "summary.png", bbox_inches="tight")
 
     plt.close(summary_fig)
@@ -61,7 +61,12 @@ def evaluate_run(args):
         experiment=edict(id=run_dir.name, log=lambda *args, **kwargs: None)
     )
 
-    for modality, checkpoint in tqdm(list(product(args.modalities, checkpoints))):
+    it = list(product(args.modalities, checkpoints))
+
+    if args.command == "run":
+        it = tqdm(it)
+
+    for modality, checkpoint in it:
         match = RE_CHECKPOINT.match(checkpoint.name)
 
         if match is None:
@@ -85,7 +90,7 @@ def evaluate_run(args):
 
 def create_argparser():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--batch_size", type=int, default=256)
+    parser.add_argument("--batch_size", type=int, default=64)
     parser.add_argument("--modalities", nargs="+", default=["smiles"])
     parser.add_argument("--datasets", nargs="+", default=DEFAULT_EVALUATION_DATASETS)
     parser.add_argument("--output_dir", default="evaluation")
@@ -106,6 +111,8 @@ def create_argparser():
 
     run_parser = subparsers.add_parser("create_summary")
     run_parser.add_argument("run_dir")
+    run_parser.add_argument("--plot_confidence_intervals", action="store_true")
+    run_parser.add_argument("--only_best_per_dataset", action="store_true")
 
     return parser
 
@@ -121,6 +128,10 @@ if __name__ == "__main__":
         args.checkpoints = list(Path(args.run_dir).glob("checkpoints/*.ckpt"))
         evaluate_run(args)
     elif args.command == "create_summary":
-        save_run_summary(args.run_dir)
+        save_run_summary(
+            run_dir=args.run_dir,
+            plot_confidence_intervals=args.plot_confidence_intervals,
+            only_best_per_dataset=args.only_best_per_dataset,
+        )
     else:
         raise ValueError(f"Unknown command: {args.command}")

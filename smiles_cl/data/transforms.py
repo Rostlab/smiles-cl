@@ -41,9 +41,6 @@ class MoleculeTransformer:
     def __call__(self, smiles):
         if self.randomize:
             smiles = utils.try_fn(randomize_smiles, smiles, max_retries=3)
-        else:
-            # Explicit kekulization prevents occasional errors with the SELFIES encoder
-            smiles = kekulize_smiles(smiles)
 
         mol = self.transform_notation(smiles)
         ids = np.array(self.tokenizer.encode(mol).ids)

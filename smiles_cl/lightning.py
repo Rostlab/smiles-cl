@@ -210,14 +210,16 @@ class LitSmilesCL(pl.LightningModule):
     def trigger_checkpoint_saving(self):
         for checkpoint_callback in self.trainer.checkpoint_callbacks:
             monitor_candidates = checkpoint_callback._monitor_candidates(self.trainer)
-            checkpoint_callback._save_last_checkpoint(self.trainer, monitor_candidates)
+            checkpoint_callback._save_none_monitor_checkpoint(
+                self.trainer, monitor_candidates
+            )
 
     def step(self, batch, batch_idx, log_prefix):
         # Manually trigger checkpoint saving and subsequent evaluation
         # on the first step to produce a 'random' baseline.
         # TODO: move this to a custom ModelCheckpoint implementation.
         # See also https://github.com/Lightning-AI/lightning/issues/17469
-        if self.trainer.global_step == 0:
+        if log_prefix == "train" and self.trainer.global_step == 0:
             self.trigger_checkpoint_saving()
 
         sequences = batch["sequences"]

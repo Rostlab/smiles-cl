@@ -139,6 +139,10 @@ class LitSmilesCL(pl.LightningModule):
         def build_encoder_model(modality):
             encoder = get_encoder(_cache=training_config.shared_encoder)
 
+            if training_config.frozen_encoder:
+                for param in encoder.parameters():
+                    param.requires_grad = False
+
             return EncoderModel(
                 InputAdapter(
                     dim=encoder.dim_model,
@@ -170,14 +174,20 @@ class LitSmilesCL(pl.LightningModule):
             self.loss_fn.rank = global_rank
             self.loss_fn.world_size = world_size
 
-        self.trainer.checkpoint_callback._every_n_train_steps = (
-            self.trainer.estimated_stepping_batches
-            // (self.training_config.checkpoints_per_epoch * self.trainer.max_epochs)
-        )
+        if self.training_config.checkpoints_per_epoch:
+            self.trainer.checkpoint_callback._every_n_train_steps = (
+                self.trainer.estimated_stepping_batches
+                // (
+                    self.training_config.checkpoints_per_epoch * self.trainer.max_epochs
+                )
+            )
+
+    def get_trainable_parameters(self):
+        return [p for p in self.parameters() if p.requires_grad]
 
     def configure_optimizers(self):
         opt = optim.AdamW(
-            self.parameters(),
+            self.get_trainable_parameters(),
             lr=self.training_config.lr,
             weight_decay=self.training_config.weight_decay,
             betas=(0.9, 0.99),

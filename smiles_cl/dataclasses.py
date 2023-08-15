@@ -29,7 +29,8 @@ class TrainingConfig:
     validate_batches: bool = False
     shared_encoder: bool = False
     loss_fn: LossFunction = "normalized_softmax_loss"
-    checkpoints_per_epoch: int = 5
+    checkpoints_per_epoch: Optional[int] = 5
+    frozen_encoder: bool = False
 
 
 @dataclass
